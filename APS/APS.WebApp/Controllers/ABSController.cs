@@ -16,7 +16,7 @@ using log4net;
 
 namespace APS.WebApp.Controllers
 {
-    //APPOINTMENET SCHEDULING SYSTEM CONTROLLER
+    
     public class ABSController : Controller
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
