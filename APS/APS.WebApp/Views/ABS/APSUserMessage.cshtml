@@ -1,0 +1,124 @@
+﻿@model APS.WebApp.Models.APSDataModel.ResetPasswordViewModel
+@{
+    ViewBag.Title = "APS Message";
+}
+<div class="row"><br /></div>
+<div class="row col-md-12" style="white-space:nowrap;">
+    <div class="col-md-2"><img class="img-responsive" src="~/Assets/images/cnb_logo.png" /></div><div class="col-md-8" style="align-items:center"> <div class="col-md-4"></div><div class="col-md-8"><h2>@ViewBag.Title.</h2></div></div><div class="col-md-2"><img class="img-responsive" src="~/Assets/images/sing-gov.png" /></div>
+</div>
+
+<div class="row col-md-12" >
+<table style="vertical-align:top">
+<tr class="col-md-12">
+<td class="col-md-4" style="vertical-align:top">
+    <div>
+        <section id="APSMessage">
+            <div class="form-group col-md-12">
+
+                <div class="col-md-3">
+                    <img class="img-responsive" src="~/Assets/images/user.jpg" />
+                </div>
+                <div class="col-md-4">
+                    @Html.Label("UserName", new { @class = "col-md-4 control-label" })
+                </div>
+                <div class="col-md-5">
+                    @Html.Label("NRIC Value", new { @class = "col-md-5 control-label" })
+                </div>
+            </div>
+            <div class="row"><br /></div>
+            <div class="form-group">
+                @Html.Label("Supervision Order", new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.Label("01/11/2017 to 31/12/2017", new { @class = "col-md-12 control-label" })
+                </div>
+            </div>
+            <div class="row"><br /></div>            
+            <div class="form-group">
+                @Html.Label("Reporting Centre", new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    `@Html.Label("A Division", new { @class = "col-md-12 control-label" })
+                </div>
+            </div>
+            <div class="row"><br /></div>
+            <div class="form-group">
+                @Html.Label("Supervision Officer", new { @class = "col-md-6 control-label" })
+                <div class="col-md-12">
+                    @Html.Label("David", new { @class = "col-md-12 control-label" })
+                </div>
+            </div>
+            <div class="row"><br /></div>
+            <div class="form-group" style="box-decoration-break:slice">
+                @Html.Label("Sub Title", new { @class = "col-md-6 control-lable" })
+                <div class="row">
+                    <div class="row"><br /></div>
+                    @Html.ActionLink("Messages", "ReturnToLogin", "APS")
+                    <div class="row"><br /></div>
+                    @Html.ActionLink("Deleted Items", "ReturnToLogin", "APS")
+                    <div class="row"><br /></div>
+                    @Html.ActionLink("Messages", "ReturnToLogin", "APS")
+                    <div class="row"><br /></div>
+                    @Html.ActionLink("Book / Change Appointment", "_APSBookAppointment", "APS")
+                    <div class="row"><br /></div>
+                    @Html.ActionLink("Change Password", "ReturnToLogin", "APS")
+                    <div class="row"><br /></div>
+                    @Html.ActionLink("Logout", "ReturnToLogin", "APS")
+                    @*<div class="row" id="btnMessages"><br /></div>   <input type="submit" value="Messages" class="btn btn-default col-md-5" />
+                    <div class="row" id="btnDeleted"><br /></div> <input type="submit" value="Deleted Items" class="btn btn-default col-md-5" />
+                    <div class="row"><br /></div>  <input type="submit" value="Book/Change Appointment" class="btn btn-default col-md-5" />
+                    <div class="row"><br /></div> <input type="submit" value="Change Password" class="btn btn-default col-md-5" />
+                    <div class="row"><br /></div> <input type="submit" value="Logout" class="btn btn-default col-md-5" />*@
+                </div>
+            </div>
+
+
+        </section>
+    </div>
+</td>
+<td class="col-md-4" style="vertical-align:top; background-color:gainsboro">
+    <div id="Subtitle">
+        @Html.Partial("_APSMessage")
+
+
+    </div>
+</td>
+<td class="col-md-4" style="vertical-align:top">
+    <div>
+        <div class="col-md-12">
+            @Html.Label("Officer Report to CNB", new { @class = "col-md-12 control-label" })
+        </div><div class="row"><br /></div>
+        <div class="row col-md-12">
+
+            @Html.Label("APS – Supervisee Mobile Web Portal Officer Report to CNB ", new { @class = "col-md-12 control-label" })
+        </div>
+    </div>
+</td>
+</tr>
+
+</table>
+   
+  
+   
+    </div>
+ 
+ 
+<script src="@Url.Content("~/Assets/js/Pages/APSUserMessage.js")"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+@section scripts{
+<script>
+        var urls = {
+            APSMessagePartialView: "@Url.Action("_APSMessage", "APS")",
+            APSDeletedPartialView: "@Url.Action("_APSDeletedItems", "APS")"
+    };
+
+    //var APSUserMessage = $.APSUserMessage(urls);
+    //APSUserMessage.Init();
+
+</script>
+}
+
+
+End Section   
+       
+    
+

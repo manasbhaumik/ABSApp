@@ -1,0 +1,178 @@
+﻿@using APS.BusinessEntity.Models.Authentication;
+@using APS.BusinessEntity.Models.Appointment;
+@model AppointmentModel
+
+@{
+    ViewBag.Title = "APSAppBooking";
+}
+@{
+    var appTimeSlot = (List<TimeSlotDetailsForAppointmentModel>)ViewData["AppointmentTimeSlotDetails"]; // Cast the list
+    var IsAppointmentAvailable = ViewBag.IsAppointmentAvailable;
+}
+
+@*<h2>APSAppBooking</h2>*@
+<div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body ">
+                        <div class="col-md-offset-11">
+                            @Session["LoginUser"].ToString()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">UserName</li>
+                            <li class="list-group-item">@Html.DisplayFor(m => m.UserInfoDetails.UserName)</li>
+                        </ul>
+
+                        <ul class="list-group">
+                            <li class="list-group-item">Supervision Order</li>
+                            <li class="list-group-item"></li>
+                        </ul>
+
+                        <ul class="list-group">
+                            <li class="list-group-item">Reporting Centre</li>
+                            <li class="list-group-item"></li>
+                        </ul>
+
+                        <ul class="list-group">
+                            <li class="list-group-item">Supervision Officer</li>
+                            <li class="list-group-item">@Html.DisplayFor(m => m.UserInfoDetails.CaseOfficerName)</li>
+                        </ul>
+
+                        <div class="row">
+                            <div class="col-md-offset-1 col-md-10">
+                                <input type="submit" value="Message" class="btn btn-default" onclick="location.href='@Url.Action("ReturnToLogin", "APS")'" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-offset-1 col-md-10">
+                                <input type="submit" value="Deleted Items" class="btn btn-default" onclick="location.href='@Url.Action("ReturnToLogin", "APS")'" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-offset-1 col-md-10">
+                                <input type="submit" value="Book/Change Appointment" class="btn btn-default" onclick="location.href='@Url.Action("ViewAppointmentBooking", "Appointment")'" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-offset-1 col-md-10">
+                                <input type="submit" value="Change Password" class="btn btn-default" onclick="location.href='@Url.Action("APSChangePassword", "APS")'" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-offset-1 col-md-10">
+                                <input type="submit" value="Logout" class="btn btn-default" onclick="location.href='@Url.Action("ReturnToLogin", "APS")'" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Appointment</div>
+                    <div class="panel-body">
+                        <div id="divAvailableAppointment">
+                            <ul class="list-group">
+                                <li class="list-group-item">@Html.Label("Your next appointment will be on:")</li>
+                                <li class="list-group-item"><span class="App_Date">@Html.DisplayFor(m => m.App_Date) </span></li>
+                                <li class="list-group-item">@Html.Label("TimeSlot:")</li>
+                                <li class="list-group-item"><span class="App_TimeSlot_Description">@Html.DisplayFor(m => m.App_TimeSlot_Description) </span></li>
+                                @if (@IsAppointmentAvailable != null && @IsAppointmentAvailable)
+                                {
+                                    if (@ViewBag.ChangeTimeSlotCount <= 3)
+                                    {
+                                        <li class="list-group-item">
+                                            <a href='@Url.Action("BookorChangeAppointment", "Appointment")'>    Change Time Slot</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="list-group-item " style="background:grey !important;">Change Time Slot</li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        @if (@ViewBag.ChangeTimeSlotCount <= 3)
+                        {
+                            <div class="timeslotDetails">
+                                @if (@IsAppointmentAvailable != null && !@IsAppointmentAvailable)
+                                {
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            @Html.Label("Select Time Slot to Book Appointment", new { @class = "col-md-12 control-label" })
+                                        </div>
+                                        <div class="panel panel-default">
+                                            @if (@appTimeSlot != null)
+                                            {
+                                                foreach (var Item in @appTimeSlot)
+                                                {
+                                                    <div class="panel-heading">
+                                                        @Html.DisplayFor(model => Item.TimeSlot_Category)
+                                                    </div>
+                                                    foreach (var tm in Item.TimeSlot_Appointment)
+                                                    {
+                                                        @*<div class="panel-body">*@
+                                                        <ul class="list-group">
+                                                            @Html.HiddenFor(model => tm.TimeSlotID)
+                                                            @if (tm.IsTimeSlotAvailable)
+                                                            {
+                                                                <li class="list-group-item"> @Html.ActionLink(tm.TimeSlot_Description, "BookChangeAppointmentDetails", "Appointment", new { @timeSlotID = tm.TimeSlotID }, null)</li>
+                                                            }
+                                                            else
+                                                            {
+                                                                <li class="list-group-item disabled " style="background:grey !important;"> @Html.DisplayFor(model => tm.TimeSlot_Description)</li>
+                                                            }
+                                                        </ul>
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    You have exceeded the number of times allowed for the time slot change. Please contact your case officer.
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        //$(document).ready(function () {
+        //    $.ajax({
+        //        type: "POST",
+        //        url: "/Appointment/GetAppointmentDetails",
+        //        data: null,
+        //        contentType: "application/json; charset=utf-8",
+        //        dataType: "json",
+        //        success: function (data) {
+        //            $('.App_Date').html(data.App_Date);
+        //            $('.App_TimeSlot_Description').html(data.App_TimeSlot_Description);
+        //            $('.timeslotDetails').html(data.AppointmentTimeSlotDetails);
+        //        }
+        //    });
+        //});
+    </script>
+}

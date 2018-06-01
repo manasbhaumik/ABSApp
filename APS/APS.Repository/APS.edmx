@@ -1,0 +1,583 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="APSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="APS_APPOINTMENT">
+          <Key>
+            <PropertyRef Name="APP_ID" />
+          </Key>
+          <Property Name="APP_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="APP_USERNAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="APP_DATE" Type="date" Nullable="false" />
+          <Property Name="APP_TIMESLOT_ID" Type="int" Nullable="false" />
+          <Property Name="APP_CHANGE_CNT" Type="int" Nullable="false" />
+          <Property Name="APP_STATUS" Type="int" Nullable="false" />
+          <Property Name="CREATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATED_ON" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LAST_UPDATED_ON" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="APS_EMAIL_LOG">
+          <Key>
+            <PropertyRef Name="EMAIL_LOG_ID" />
+          </Key>
+          <Property Name="EMAIL_LOG_ID" Type="bigint" Nullable="false" />
+          <Property Name="EMAIL_MSG" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="EMAIL_FROM_ADDR" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="EMAIL_TO_ADDR" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CREATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATED_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LAST_UPDATED_ON" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="APS_PWD_QUESTIONS">
+          <Key>
+            <PropertyRef Name="PWD_QUES_ID" />
+          </Key>
+          <Property Name="PWD_QUES_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PWD_QUES" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="CREATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATED_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LAST_UPDATED_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="APS_SMS_LOG">
+          <Key>
+            <PropertyRef Name="SMS_LOG_ID" />
+          </Key>
+          <Property Name="SMS_LOG_ID" Type="bigint" Nullable="false" />
+          <Property Name="SMS_MSG" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SMS_FROM_ADDR" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="SMS_TO_ADDR" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="CREATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATED_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LAST_UPDATED_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="APS_TIMESLOT">
+          <Key>
+            <PropertyRef Name="TIMESLOT_ID" />
+          </Key>
+          <Property Name="TIMESLOT_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TIMESLOT_CATEGORY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TIMESLOT_DESC" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TIMESLOT_WEEKDAY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SLOT_START_TIME" Type="time" Precision="7" Nullable="false" />
+          <Property Name="SLOT_END_TIME" Type="time" Precision="7" Nullable="false" />
+          <Property Name="CREATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATED_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LAST_UPDATED_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="APS_USER_ACT_LOG">
+          <Key>
+            <PropertyRef Name="USER_ACT_LOG_ID" />
+          </Key>
+          <Property Name="USER_ACT_LOG_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ACT_LOG" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="USER_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATED_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="APS_USER_INFO">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="bigint" Nullable="false" />
+          <Property Name="USER_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="USER_FIRST_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="USER_LAST_NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="USER_MOBILE_NO" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="USER_EMAIL_ADDR" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="USER_DATE_OF_BIRTH" Type="date" Nullable="false" />
+          <Property Name="CASE_OFFICER_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CASE_OFFICER_EMAIL" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="CASE_OFFICER_MOBILE_NO" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="CREATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATED_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LAST_UPDATED_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="APS_USERS">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_NAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="USER_PASSWORD" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="IS_DELETED" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="LOGIN_FAIL_ATTEMPT" Type="int" Nullable="false" />
+          <Property Name="PWD_CHANGE_FAIL_ATTMPT" Type="int" Nullable="false" />
+          <Property Name="DOB_FAIL_ATTEMPT" Type="int" Nullable="false" />
+          <Property Name="PWD_QUES_ID" Type="int" Nullable="false" />
+          <Property Name="PWD_QUES_ANSWER" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CREATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATED_TIME" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LAST_UPDATED_TIME" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'APS.dbo.V_APPOINTMENT_DETAILS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_APPOINTMENT_DETAILS">
+          <Key>
+            <PropertyRef Name="APP_ID" />
+            <PropertyRef Name="APP_USERNAME" />
+            <PropertyRef Name="APP_DATE" />
+            <PropertyRef Name="APP_TIMESLOT_ID" />
+            <PropertyRef Name="APP_CHANGE_CNT" />
+            <PropertyRef Name="APP_STATUS" />
+            <PropertyRef Name="CREATED_BY" />
+            <PropertyRef Name="CREATED_ON" />
+            <PropertyRef Name="LAST_UPDATED_BY" />
+            <PropertyRef Name="LAST_UPDATED_ON" />
+            <PropertyRef Name="TIMESLOT_CATEGORY" />
+            <PropertyRef Name="TIMESLOT_DESC" />
+            <PropertyRef Name="TIMESLOT_WEEKDAY" />
+            <PropertyRef Name="SLOT_START_TIME" />
+            <PropertyRef Name="SLOT_END_TIME" />
+          </Key>
+          <Property Name="APP_ID" Type="bigint" Nullable="false" />
+          <Property Name="APP_USERNAME" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="APP_DATE" Type="date" Nullable="false" />
+          <Property Name="APP_TIMESLOT_ID" Type="int" Nullable="false" />
+          <Property Name="APP_CHANGE_CNT" Type="int" Nullable="false" />
+          <Property Name="APP_STATUS" Type="int" Nullable="false" />
+          <Property Name="CREATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CREATED_ON" Type="datetime" Nullable="false" />
+          <Property Name="LAST_UPDATED_BY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LAST_UPDATED_ON" Type="datetime" Nullable="false" />
+          <Property Name="TIMESLOT_CATEGORY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TIMESLOT_DESC" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TIMESLOT_WEEKDAY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SLOT_START_TIME" Type="time" Precision="7" Nullable="false" />
+          <Property Name="SLOT_END_TIME" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'APS.dbo.V_TIMESLOT_DETAILS' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="V_TIMESLOT_DETAILS">
+          <Key>
+            <PropertyRef Name="TIMESLOT_ID" />
+            <PropertyRef Name="TIMESLOT_CATEGORY" />
+            <PropertyRef Name="TIMESLOT_DESC" />
+            <PropertyRef Name="TIMESLOT_WEEKDAY" />
+            <PropertyRef Name="SLOT_START_TIME" />
+            <PropertyRef Name="SLOT_END_TIME" />
+          </Key>
+          <Property Name="TIMESLOT_ID" Type="int" Nullable="false" />
+          <Property Name="TIMESLOT_CATEGORY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TIMESLOT_DESC" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TIMESLOT_WEEKDAY" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SLOT_START_TIME" Type="time" Precision="7" Nullable="false" />
+          <Property Name="SLOT_END_TIME" Type="time" Precision="7" Nullable="false" />
+          <Property Name="App_cnt" Type="int" />
+        </EntityType>
+        <EntityContainer Name="APSModelStoreContainer">
+          <EntitySet Name="APS_APPOINTMENT" EntityType="Self.APS_APPOINTMENT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APS_EMAIL_LOG" EntityType="Self.APS_EMAIL_LOG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APS_PWD_QUESTIONS" EntityType="Self.APS_PWD_QUESTIONS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APS_SMS_LOG" EntityType="Self.APS_SMS_LOG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APS_TIMESLOT" EntityType="Self.APS_TIMESLOT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APS_USER_ACT_LOG" EntityType="Self.APS_USER_ACT_LOG" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APS_USER_INFO" EntityType="Self.APS_USER_INFO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="APS_USERS" EntityType="Self.APS_USERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="V_APPOINTMENT_DETAILS" EntityType="Self.V_APPOINTMENT_DETAILS" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_APPOINTMENT_DETAILS].[APP_ID] AS [APP_ID], 
+    [V_APPOINTMENT_DETAILS].[APP_USERNAME] AS [APP_USERNAME], 
+    [V_APPOINTMENT_DETAILS].[APP_DATE] AS [APP_DATE], 
+    [V_APPOINTMENT_DETAILS].[APP_TIMESLOT_ID] AS [APP_TIMESLOT_ID], 
+    [V_APPOINTMENT_DETAILS].[APP_CHANGE_CNT] AS [APP_CHANGE_CNT], 
+    [V_APPOINTMENT_DETAILS].[APP_STATUS] AS [APP_STATUS], 
+    [V_APPOINTMENT_DETAILS].[CREATED_BY] AS [CREATED_BY], 
+    [V_APPOINTMENT_DETAILS].[CREATED_ON] AS [CREATED_ON], 
+    [V_APPOINTMENT_DETAILS].[LAST_UPDATED_BY] AS [LAST_UPDATED_BY], 
+    [V_APPOINTMENT_DETAILS].[LAST_UPDATED_ON] AS [LAST_UPDATED_ON], 
+    [V_APPOINTMENT_DETAILS].[TIMESLOT_CATEGORY] AS [TIMESLOT_CATEGORY], 
+    [V_APPOINTMENT_DETAILS].[TIMESLOT_DESC] AS [TIMESLOT_DESC], 
+    [V_APPOINTMENT_DETAILS].[TIMESLOT_WEEKDAY] AS [TIMESLOT_WEEKDAY], 
+    [V_APPOINTMENT_DETAILS].[SLOT_START_TIME] AS [SLOT_START_TIME], 
+    [V_APPOINTMENT_DETAILS].[SLOT_END_TIME] AS [SLOT_END_TIME]
+    FROM [dbo].[V_APPOINTMENT_DETAILS] AS [V_APPOINTMENT_DETAILS]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="V_TIMESLOT_DETAILS" EntityType="Self.V_TIMESLOT_DETAILS" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [V_TIMESLOT_DETAILS].[TIMESLOT_ID] AS [TIMESLOT_ID], 
+    [V_TIMESLOT_DETAILS].[TIMESLOT_CATEGORY] AS [TIMESLOT_CATEGORY], 
+    [V_TIMESLOT_DETAILS].[TIMESLOT_DESC] AS [TIMESLOT_DESC], 
+    [V_TIMESLOT_DETAILS].[TIMESLOT_WEEKDAY] AS [TIMESLOT_WEEKDAY], 
+    [V_TIMESLOT_DETAILS].[SLOT_START_TIME] AS [SLOT_START_TIME], 
+    [V_TIMESLOT_DETAILS].[SLOT_END_TIME] AS [SLOT_END_TIME], 
+    [V_TIMESLOT_DETAILS].[App_cnt] AS [App_cnt]
+    FROM [dbo].[V_TIMESLOT_DETAILS] AS [V_TIMESLOT_DETAILS]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="APSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="APSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="APS_APPOINTMENT" EntityType="APSModel.APS_APPOINTMENT" />
+          <EntitySet Name="APS_EMAIL_LOG" EntityType="APSModel.APS_EMAIL_LOG" />
+          <EntitySet Name="APS_PWD_QUESTIONS" EntityType="APSModel.APS_PWD_QUESTIONS" />
+          <EntitySet Name="APS_SMS_LOG" EntityType="APSModel.APS_SMS_LOG" />
+          <EntitySet Name="APS_TIMESLOT" EntityType="APSModel.APS_TIMESLOT" />
+          <EntitySet Name="APS_USER_INFO" EntityType="APSModel.APS_USER_INFO" />
+          <EntitySet Name="APS_USERS" EntityType="APSModel.APS_USERS" />
+          <EntitySet Name="APS_USER_ACT_LOG" EntityType="APSModel.APS_USER_ACT_LOG" />
+          <EntitySet Name="V_APPOINTMENT_DETAILS" EntityType="APSModel.V_APPOINTMENT_DETAILS" />
+          <EntitySet Name="V_TIMESLOT_DETAILS" EntityType="APSModel.V_TIMESLOT_DETAILS" />
+        </EntityContainer>
+        <EntityType Name="APS_APPOINTMENT">
+          <Key>
+            <PropertyRef Name="APP_ID" />
+          </Key>
+          <Property Name="APP_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="APP_USERNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="APP_TIMESLOT_ID" Type="Int32" Nullable="false" />
+          <Property Name="APP_CHANGE_CNT" Type="Int32" Nullable="false" />
+          <Property Name="APP_STATUS" Type="Int32" Nullable="false" />
+          <Property Name="CREATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_ON" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_UPDATED_ON" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="APP_DATE" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="APS_EMAIL_LOG">
+          <Key>
+            <PropertyRef Name="EMAIL_LOG_ID" />
+          </Key>
+          <Property Name="EMAIL_LOG_ID" Type="Int64" Nullable="false" />
+          <Property Name="EMAIL_MSG" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL_FROM_ADDR" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="EMAIL_TO_ADDR" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_UPDATED_ON" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="APS_PWD_QUESTIONS">
+          <Key>
+            <PropertyRef Name="PWD_QUES_ID" />
+          </Key>
+          <Property Name="PWD_QUES_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PWD_QUES" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_UPDATED_TIME" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="APS_SMS_LOG">
+          <Key>
+            <PropertyRef Name="SMS_LOG_ID" />
+          </Key>
+          <Property Name="SMS_LOG_ID" Type="Int64" Nullable="false" />
+          <Property Name="SMS_MSG" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SMS_FROM_ADDR" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="SMS_TO_ADDR" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_UPDATED_TIME" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="APS_TIMESLOT">
+          <Key>
+            <PropertyRef Name="TIMESLOT_ID" />
+          </Key>
+          <Property Name="TIMESLOT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TIMESLOT_CATEGORY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TIMESLOT_DESC" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TIMESLOT_WEEKDAY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SLOT_START_TIME" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="SLOT_END_TIME" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="CREATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_UPDATED_TIME" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="APS_USER_INFO">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="Int64" Nullable="false" />
+          <Property Name="USER_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USER_FIRST_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USER_LAST_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="USER_MOBILE_NO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="USER_EMAIL_ADDR" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="USER_DATE_OF_BIRTH" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CASE_OFFICER_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CASE_OFFICER_EMAIL" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="CASE_OFFICER_MOBILE_NO" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_UPDATED_TIME" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="APS_USERS">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="USER_PASSWORD" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IS_DELETED" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="LOGIN_FAIL_ATTEMPT" Type="Int32" Nullable="false" />
+          <Property Name="PWD_CHANGE_FAIL_ATTMPT" Type="Int32" Nullable="false" />
+          <Property Name="DOB_FAIL_ATTEMPT" Type="Int32" Nullable="false" />
+          <Property Name="PWD_QUES_ID" Type="Int32" Nullable="false" />
+          <Property Name="PWD_QUES_ANSWER" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CREATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_TIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_UPDATED_TIME" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="APS_USER_ACT_LOG">
+          <Key>
+            <PropertyRef Name="USER_ACT_LOG_ID" />
+          </Key>
+          <Property Name="USER_ACT_LOG_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ACT_LOG" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="USER_NAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_TIME" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="V_APPOINTMENT_DETAILS">
+          <Key>
+            <PropertyRef Name="APP_ID" />
+            <PropertyRef Name="APP_USERNAME" />
+            <PropertyRef Name="APP_DATE" />
+            <PropertyRef Name="APP_TIMESLOT_ID" />
+            <PropertyRef Name="APP_CHANGE_CNT" />
+            <PropertyRef Name="APP_STATUS" />
+            <PropertyRef Name="CREATED_BY" />
+            <PropertyRef Name="CREATED_ON" />
+            <PropertyRef Name="LAST_UPDATED_BY" />
+            <PropertyRef Name="LAST_UPDATED_ON" />
+            <PropertyRef Name="TIMESLOT_CATEGORY" />
+            <PropertyRef Name="TIMESLOT_DESC" />
+            <PropertyRef Name="TIMESLOT_WEEKDAY" />
+            <PropertyRef Name="SLOT_START_TIME" />
+            <PropertyRef Name="SLOT_END_TIME" />
+          </Key>
+          <Property Name="APP_ID" Type="Int64" Nullable="false" />
+          <Property Name="APP_USERNAME" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="APP_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="APP_TIMESLOT_ID" Type="Int32" Nullable="false" />
+          <Property Name="APP_CHANGE_CNT" Type="Int32" Nullable="false" />
+          <Property Name="APP_STATUS" Type="Int32" Nullable="false" />
+          <Property Name="CREATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CREATED_ON" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LAST_UPDATED_BY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_UPDATED_ON" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TIMESLOT_CATEGORY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TIMESLOT_DESC" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TIMESLOT_WEEKDAY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SLOT_START_TIME" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="SLOT_END_TIME" Type="Time" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="V_TIMESLOT_DETAILS">
+          <Key>
+            <PropertyRef Name="TIMESLOT_ID" />
+            <PropertyRef Name="TIMESLOT_CATEGORY" />
+            <PropertyRef Name="TIMESLOT_DESC" />
+            <PropertyRef Name="TIMESLOT_WEEKDAY" />
+            <PropertyRef Name="SLOT_START_TIME" />
+            <PropertyRef Name="SLOT_END_TIME" />
+          </Key>
+          <Property Name="TIMESLOT_ID" Type="Int32" Nullable="false" />
+          <Property Name="TIMESLOT_CATEGORY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TIMESLOT_DESC" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="App_cnt" Type="Int32" />
+          <Property Name="TIMESLOT_WEEKDAY" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SLOT_START_TIME" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="SLOT_END_TIME" Type="Time" Nullable="false" Precision="7" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="APSModelStoreContainer" CdmEntityContainer="APSEntities">
+          <EntitySetMapping Name="APS_APPOINTMENT">
+            <EntityTypeMapping TypeName="APSModel.APS_APPOINTMENT">
+              <MappingFragment StoreEntitySet="APS_APPOINTMENT">
+                <ScalarProperty Name="APP_DATE" ColumnName="APP_DATE" />
+                <ScalarProperty Name="LAST_UPDATED_ON" ColumnName="LAST_UPDATED_ON" />
+                <ScalarProperty Name="LAST_UPDATED_BY" ColumnName="LAST_UPDATED_BY" />
+                <ScalarProperty Name="CREATED_ON" ColumnName="CREATED_ON" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="APP_STATUS" ColumnName="APP_STATUS" />
+                <ScalarProperty Name="APP_CHANGE_CNT" ColumnName="APP_CHANGE_CNT" />
+                <ScalarProperty Name="APP_TIMESLOT_ID" ColumnName="APP_TIMESLOT_ID" />
+                <ScalarProperty Name="APP_USERNAME" ColumnName="APP_USERNAME" />
+                <ScalarProperty Name="APP_ID" ColumnName="APP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APS_EMAIL_LOG">
+            <EntityTypeMapping TypeName="APSModel.APS_EMAIL_LOG">
+              <MappingFragment StoreEntitySet="APS_EMAIL_LOG">
+                <ScalarProperty Name="LAST_UPDATED_ON" ColumnName="LAST_UPDATED_ON" />
+                <ScalarProperty Name="LAST_UPDATED_BY" ColumnName="LAST_UPDATED_BY" />
+                <ScalarProperty Name="CREATED_TIME" ColumnName="CREATED_TIME" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="EMAIL_TO_ADDR" ColumnName="EMAIL_TO_ADDR" />
+                <ScalarProperty Name="EMAIL_FROM_ADDR" ColumnName="EMAIL_FROM_ADDR" />
+                <ScalarProperty Name="EMAIL_MSG" ColumnName="EMAIL_MSG" />
+                <ScalarProperty Name="EMAIL_LOG_ID" ColumnName="EMAIL_LOG_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APS_PWD_QUESTIONS">
+            <EntityTypeMapping TypeName="APSModel.APS_PWD_QUESTIONS">
+              <MappingFragment StoreEntitySet="APS_PWD_QUESTIONS">
+                <ScalarProperty Name="LAST_UPDATED_TIME" ColumnName="LAST_UPDATED_TIME" />
+                <ScalarProperty Name="LAST_UPDATED_BY" ColumnName="LAST_UPDATED_BY" />
+                <ScalarProperty Name="CREATED_TIME" ColumnName="CREATED_TIME" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="PWD_QUES" ColumnName="PWD_QUES" />
+                <ScalarProperty Name="PWD_QUES_ID" ColumnName="PWD_QUES_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APS_SMS_LOG">
+            <EntityTypeMapping TypeName="APSModel.APS_SMS_LOG">
+              <MappingFragment StoreEntitySet="APS_SMS_LOG">
+                <ScalarProperty Name="LAST_UPDATED_TIME" ColumnName="LAST_UPDATED_TIME" />
+                <ScalarProperty Name="LAST_UPDATED_BY" ColumnName="LAST_UPDATED_BY" />
+                <ScalarProperty Name="CREATED_TIME" ColumnName="CREATED_TIME" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="SMS_TO_ADDR" ColumnName="SMS_TO_ADDR" />
+                <ScalarProperty Name="SMS_FROM_ADDR" ColumnName="SMS_FROM_ADDR" />
+                <ScalarProperty Name="SMS_MSG" ColumnName="SMS_MSG" />
+                <ScalarProperty Name="SMS_LOG_ID" ColumnName="SMS_LOG_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APS_TIMESLOT">
+            <EntityTypeMapping TypeName="APSModel.APS_TIMESLOT">
+              <MappingFragment StoreEntitySet="APS_TIMESLOT">
+                <ScalarProperty Name="LAST_UPDATED_TIME" ColumnName="LAST_UPDATED_TIME" />
+                <ScalarProperty Name="LAST_UPDATED_BY" ColumnName="LAST_UPDATED_BY" />
+                <ScalarProperty Name="CREATED_TIME" ColumnName="CREATED_TIME" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="SLOT_END_TIME" ColumnName="SLOT_END_TIME" />
+                <ScalarProperty Name="SLOT_START_TIME" ColumnName="SLOT_START_TIME" />
+                <ScalarProperty Name="TIMESLOT_WEEKDAY" ColumnName="TIMESLOT_WEEKDAY" />
+                <ScalarProperty Name="TIMESLOT_DESC" ColumnName="TIMESLOT_DESC" />
+                <ScalarProperty Name="TIMESLOT_CATEGORY" ColumnName="TIMESLOT_CATEGORY" />
+                <ScalarProperty Name="TIMESLOT_ID" ColumnName="TIMESLOT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APS_USER_INFO">
+            <EntityTypeMapping TypeName="APSModel.APS_USER_INFO">
+              <MappingFragment StoreEntitySet="APS_USER_INFO">
+                <ScalarProperty Name="LAST_UPDATED_TIME" ColumnName="LAST_UPDATED_TIME" />
+                <ScalarProperty Name="LAST_UPDATED_BY" ColumnName="LAST_UPDATED_BY" />
+                <ScalarProperty Name="CREATED_TIME" ColumnName="CREATED_TIME" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="CASE_OFFICER_MOBILE_NO" ColumnName="CASE_OFFICER_MOBILE_NO" />
+                <ScalarProperty Name="CASE_OFFICER_EMAIL" ColumnName="CASE_OFFICER_EMAIL" />
+                <ScalarProperty Name="CASE_OFFICER_NAME" ColumnName="CASE_OFFICER_NAME" />
+                <ScalarProperty Name="USER_DATE_OF_BIRTH" ColumnName="USER_DATE_OF_BIRTH" />
+                <ScalarProperty Name="USER_EMAIL_ADDR" ColumnName="USER_EMAIL_ADDR" />
+                <ScalarProperty Name="USER_MOBILE_NO" ColumnName="USER_MOBILE_NO" />
+                <ScalarProperty Name="USER_LAST_NAME" ColumnName="USER_LAST_NAME" />
+                <ScalarProperty Name="USER_FIRST_NAME" ColumnName="USER_FIRST_NAME" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APS_USERS">
+            <EntityTypeMapping TypeName="APSModel.APS_USERS">
+              <MappingFragment StoreEntitySet="APS_USERS">
+                <ScalarProperty Name="LAST_UPDATED_TIME" ColumnName="LAST_UPDATED_TIME" />
+                <ScalarProperty Name="LAST_UPDATED_BY" ColumnName="LAST_UPDATED_BY" />
+                <ScalarProperty Name="CREATED_TIME" ColumnName="CREATED_TIME" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="PWD_QUES_ANSWER" ColumnName="PWD_QUES_ANSWER" />
+                <ScalarProperty Name="PWD_QUES_ID" ColumnName="PWD_QUES_ID" />
+                <ScalarProperty Name="DOB_FAIL_ATTEMPT" ColumnName="DOB_FAIL_ATTEMPT" />
+                <ScalarProperty Name="PWD_CHANGE_FAIL_ATTMPT" ColumnName="PWD_CHANGE_FAIL_ATTMPT" />
+                <ScalarProperty Name="LOGIN_FAIL_ATTEMPT" ColumnName="LOGIN_FAIL_ATTEMPT" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="USER_PASSWORD" ColumnName="USER_PASSWORD" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="APS_USER_ACT_LOG">
+            <EntityTypeMapping TypeName="APSModel.APS_USER_ACT_LOG">
+              <MappingFragment StoreEntitySet="APS_USER_ACT_LOG">
+                <ScalarProperty Name="CREATED_TIME" ColumnName="CREATED_TIME" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_ACT_LOG" ColumnName="USER_ACT_LOG" />
+                <ScalarProperty Name="USER_ACT_LOG_ID" ColumnName="USER_ACT_LOG_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_APPOINTMENT_DETAILS">
+            <EntityTypeMapping TypeName="APSModel.V_APPOINTMENT_DETAILS">
+              <MappingFragment StoreEntitySet="V_APPOINTMENT_DETAILS">
+                <ScalarProperty Name="SLOT_END_TIME" ColumnName="SLOT_END_TIME" />
+                <ScalarProperty Name="SLOT_START_TIME" ColumnName="SLOT_START_TIME" />
+                <ScalarProperty Name="TIMESLOT_WEEKDAY" ColumnName="TIMESLOT_WEEKDAY" />
+                <ScalarProperty Name="TIMESLOT_DESC" ColumnName="TIMESLOT_DESC" />
+                <ScalarProperty Name="TIMESLOT_CATEGORY" ColumnName="TIMESLOT_CATEGORY" />
+                <ScalarProperty Name="LAST_UPDATED_ON" ColumnName="LAST_UPDATED_ON" />
+                <ScalarProperty Name="LAST_UPDATED_BY" ColumnName="LAST_UPDATED_BY" />
+                <ScalarProperty Name="CREATED_ON" ColumnName="CREATED_ON" />
+                <ScalarProperty Name="CREATED_BY" ColumnName="CREATED_BY" />
+                <ScalarProperty Name="APP_STATUS" ColumnName="APP_STATUS" />
+                <ScalarProperty Name="APP_CHANGE_CNT" ColumnName="APP_CHANGE_CNT" />
+                <ScalarProperty Name="APP_TIMESLOT_ID" ColumnName="APP_TIMESLOT_ID" />
+                <ScalarProperty Name="APP_DATE" ColumnName="APP_DATE" />
+                <ScalarProperty Name="APP_USERNAME" ColumnName="APP_USERNAME" />
+                <ScalarProperty Name="APP_ID" ColumnName="APP_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="V_TIMESLOT_DETAILS">
+            <EntityTypeMapping TypeName="APSModel.V_TIMESLOT_DETAILS">
+              <MappingFragment StoreEntitySet="V_TIMESLOT_DETAILS">
+                <ScalarProperty Name="SLOT_END_TIME" ColumnName="SLOT_END_TIME" />
+                <ScalarProperty Name="SLOT_START_TIME" ColumnName="SLOT_START_TIME" />
+                <ScalarProperty Name="TIMESLOT_WEEKDAY" ColumnName="TIMESLOT_WEEKDAY" />
+                <ScalarProperty Name="App_cnt" ColumnName="App_cnt" />
+                <ScalarProperty Name="TIMESLOT_DESC" ColumnName="TIMESLOT_DESC" />
+                <ScalarProperty Name="TIMESLOT_CATEGORY" ColumnName="TIMESLOT_CATEGORY" />
+                <ScalarProperty Name="TIMESLOT_ID" ColumnName="TIMESLOT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

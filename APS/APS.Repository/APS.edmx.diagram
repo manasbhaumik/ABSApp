@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="346e9ca94e9e4a07ada6811675936070" Name="Diagram1">
+        <EntityTypeShape EntityType="APSModel.APS_APPOINTMENT" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="APSModel.APS_EMAIL_LOG" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="APSModel.APS_PWD_QUESTIONS" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="APSModel.APS_SMS_LOG" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="APSModel.APS_TIMESLOT" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="APSModel.APS_USER_INFO" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="APSModel.APS_USERS" Width="1.5" PointX="4.75" PointY="6.75" />
+        <EntityTypeShape EntityType="APSModel.APS_USER_ACT_LOG" Width="1.5" PointX="7.375" PointY="5.75" />
+        <EntityTypeShape EntityType="APSModel.V_APPOINTMENT_DETAILS" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="APSModel.V_TIMESLOT_DETAILS" Width="1.5" PointX="7.375" PointY="8.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

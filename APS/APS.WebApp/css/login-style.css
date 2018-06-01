@@ -1,0 +1,125 @@
+
+.login.d-flex{
+	min-height: 100vh;
+}
+
+.box.login{
+	width: 100%;
+	max-width: 640px;
+	margin: 0 auto;
+
+	-webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+	-moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+}
+
+.box.login > .row{
+	margin: 0;
+}
+
+.box.login .login-left {
+	background-color: #ffffff;
+	padding: 40px 30px;
+}
+
+.box.login .login-right {
+	color: #fff;
+	background-color: #334352;
+	padding: 40px 30px;
+}
+
+.box.login .login-logo{
+	margin-bottom: 26px;
+}
+
+.box.login .login-title .title{
+    max-width: 120px;
+	line-height: 1.2;
+	margin-bottom: 85px;
+}
+
+.box.login .login-form .form-title{
+	margin-bottom: 30px;
+}
+
+.box.login .form-group{
+	margin-bottom: 18px;
+}
+
+.box.login .login-remark{
+	text-align: center;
+	font-size: 80%;
+	color: #000;
+}
+
+.box.login .login-copyright{
+	font-size: 90%;
+}
+
+.box.login .login-privacy-terms{
+	font-size: 90%;
+	font-weight: bold;
+	margin-bottom: 0;
+}
+
+
+.box.login .login-privacy,
+.box.login .login-terms{	
+	color: #334352;
+}
+
+.box.login .login-privacy:hover,
+.box.login .login-privacy:focus,
+.box.login .login-terms:hover,
+.box.login .login-terms:focus{	
+	color: #31404e;
+}
+
+
+@media (max-width: 574px) {
+	.login.d-flex {
+		min-height: 100vh;
+		margin: 0 -15px;
+	}
+
+	.box.login{
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
+
+	.box.login .login-left{
+		position: unset;
+		padding: 30px 40px;
+	}
+
+	.box.login .login-right{
+		margin-bottom: 140px;
+	}
+
+	.box.login .login-logo {
+		margin-bottom: 20px;
+		text-align: center;
+	}
+
+	.box.login .login-title .title{
+		max-width: 100%;
+		text-align: center;
+		margin-bottom: 0;
+	}
+
+	.box.login .login-remark{
+		position: absolute;
+		left: 0;
+		bottom: 20px;
+		width: 100%;
+	}
+
+	.box.login .login-privacy-terms{
+		font-size: 90%;
+		font-weight: bold;
+		margin-bottom: 16px;
+	}
+
+
+}

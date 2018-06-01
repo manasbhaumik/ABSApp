@@ -1,0 +1,271 @@
+﻿@using APS.BusinessEntity.Models.Authentication;
+@using APS.BusinessEntity.Models.Appointment;
+@using APS.BusinessEntity.Models.Common;
+@{
+    Layout = null;
+    var imgSrc = "";
+    if (ViewBag.Photo != null)
+    {
+        var base64 = Convert.ToBase64String(ViewBag.Photo);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+    }
+    else
+    {
+        imgSrc = "~/img/user/Noimage.png";
+    }
+   
+
+    var applist = ViewData["SupAppointments"] as List<Appointment>;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/base/favicon.ico">
+    <title>Appointment History | ABS</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/glyphicons.css" rel="stylesheet">
+    <link href="/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link href="/css/login-style.css" rel="stylesheet">
+    <link href="/css/buttonlike-radiobutton-checkbox.css" rel="stylesheet">
+    <link href="/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="/css/custom-style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Page Content -->
+    <div class="page-content">
+        <div class="header">
+            <div class="pre-menu">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <div class="header-page-logo left">
+                                <a href="#"><img src="/img/base/logo-trinity.png" class="" alt="" /></a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="header-page-logo right">
+                                <a href="https://www.gov.sg/" target="_blank"><img src="/img/base/singapore-government.png" class="" alt="" /></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-menu">
+                <div class="container">
+                    <nav class="navbar navbar-expand-md ">
+                        <div class="row ustify-content-between">
+                            <div class="col-9">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"><span class="line"></span></span>
+                                </button>
+                                <spn class="header-menu-page-name">Appointment Booking System</spn>
+                            </div>
+                            <div class="col-3 ">
+                                <div class="btn-group btn-user float-right dropleft">
+                                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-user rounded-circle">
+                                        <img src='@imgSrc' alt="" style="min-height:36px;min-width:30px;" class="btn-user-img rounded-circle" />
+                                    </button>
+                                    <div class="dropdown-menu user-menu" data-container="body">
+                                        <div class="row ">
+                                            <div class="col-12 user-item">
+                                                <div class="user-menu-top">
+                                                    <p class="user-menu-title">My Account</p> <button type="button" class="btn btn-empty user-close">X</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <div class="user-menu-img">
+                                                    <img src='@imgSrc' class="profile-picture rounded-circle" alt="" />
+                                                </div>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <p class="user-menu-bold">
+                                                    @ViewBag.Name
+                                                </p>
+                                                <p class="user-menu-grey">
+                                                    @ViewBag.NRIC
+                                                </p>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <p class="user-menu-grey">
+                                                    Supervision Order
+                                                </p>
+                                                <p class="user-menu-bold">
+                                                    @ViewBag.SupervisionOrder
+                                                </p>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <p class="user-menu-grey">
+                                                    Reporting Centre
+                                                </p>
+                                                <p class="user-menu-bold">
+                                                    @ViewBag.ReportingCenter
+                                                </p>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <p class="user-menu-grey">
+                                                    Supervision Officer
+                                                </p>
+                                                <p class="user-menu-bold">
+                                                    @ViewBag.SupervisionOfficer
+                                                </p>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <div class="user-menu-button">
+                                                    <!-- <button type="button" class="btn btn-primary btn-block">Change Password</button> -->
+                                                    <a href="@Url.Action("UserChangePassword", "ABS", new { Area = "ABS" })" class="btn btn-primary btn-block">Change Password</a>
+                                                    <!-- <button type="button" class="btn btn-primary btn-block">Logout</button> -->
+                                                    <a id="btnLogout" class="btn btn-primary btn-block">Logout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="nav-menu">
+                <div class="container">
+                    <nav class="navbar">
+                        <div class="collapse navbar-collapse navbar-nav-side" id="navMenu">
+                            <ul class="navbar-nav mr-auto ">
+                                <li class="nav-item side-menu-title">
+                                    <h5 class="title">
+                                        Appointment Booking System
+                                    </h5>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="@Url.Action("ViewMessages", "Appointment", new { Area = "Appointment" })"><span class="oi icon-fixed-width oi-envelope-closed"></span> Message</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("ViewAppointment", "Appointment", new { Area = "Appointment" })"><span class="oi icon-fixed-width oi-calendar"></span> Book/Change Appointment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("AppointmentHistory", "Appointment", new { Area = "Appointment" })"><span class="oi icon-fixed-width oi-calendar"></span> Appointment History</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="content ">
+            <div class="content-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-sm-4 push-0 push-sm-8">
+                            <div class="content-search">
+                                <div class="form-group ">
+                                    <div class="input-group ">
+                                        <input type="text" id="txtSearch" class="form-control " placeholder="Search" />
+                                        <span class="input-group-addon ">
+                                            <span id="btnSearch" class="oi icon-fixed-width oi-magnifying-glass"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-8 pull-0 pull-sm-4">
+                            <div class="content-title">
+                                <p class="title">
+                                    Appointment History
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <div class="container ">
+                    <div class="row ">
+                        <div class="col-12">
+                            <div class="table-container mt-5">
+                                <!-- https://datatables.net/examples/styling/bootstrap4.html -->
+                                <table id="appointment-history-table" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                Date
+                                            </th>
+                                            <th>
+                                                Time
+                                            </th>
+                                            <th>
+                                                Status
+                                            </th>
+                                            @*<th class="text-center">
+                                                Misc. doc
+                                            </th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       
+                                        @foreach (var item in(List<Appointment>)ViewData["SupAppointments"])
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.Date.ToString("dd/MM/yyy")
+
+                                                </td>
+                                                <td>
+                                                    @item.StrTime - @item.EndTime
+
+                                                </td>
+                                                <td>
+                                                    @item.Status
+                                                </td>
+                                                @*<td class="text-center">
+                                                    <button type="button" class="btn-table-file" data-toggle="modal" data-target="#filePreviewModal"><span class="glyphicon glyphicon-file"></span></button>
+                                                </td>*@
+                                            </tr>
+
+                                        }
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/tether.js"></script>
+    <script>
+        window.Tether = {};
+    </script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/custom-js.js"></script>
+    <script src="/js/jquery.dataTables.min.js"></script>
+    <script src="/js/dataTables.bootstrap4.min.js"></script>
+    <script type=text/javascript>
+        $("#btnLogout").click(function () {
+            sessionStorage.setItem('LoggedInUserName', null);
+            sessionStorage.setItem('accessToken', null);
+            sessionStorage.setItem('UserProfile', null);
+            window.location.href = "@Url.Action("ABSLogin", "ABS", new { Area = "ABS" })";
+
+        });
+
+
+    </script>
+
+</body>
+</html>

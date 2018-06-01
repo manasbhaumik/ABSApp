@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{294EC3FD-D7FF-4588-8182-AD78AE60DE32}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>APS.Repository</RootNamespace>
+    <AssemblyName>APS.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Appointment\AppointmentBookingExtensions.cs" />
+    <Compile Include="Appointment\AppointmentBookingRepository.cs" />
+    <Compile Include="APS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>APS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="APS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>APS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="APS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>APS.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="APS_APPOINTMENT.cs">
+      <DependentUpon>APS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="APS_EMAIL_LOG.cs">
+      <DependentUpon>APS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="APS_PWD_QUESTIONS.cs">
+      <DependentUpon>APS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="APS_SMS_LOG.cs">
+      <DependentUpon>APS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="APS_TIMESLOT.cs">
+      <DependentUpon>APS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="APS_USERS.cs">
+      <DependentUpon>APS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="APS_USER_ACT_LOG.cs">
+      <DependentUpon>APS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="APS_USER_INFO.cs">
+      <DependentUpon>APS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Authentication\ActivityLoggingRepository.cs" />
+    <Compile Include="Authentication\AuthenticationExtensions.cs" />
+    <Compile Include="Authentication\AuthenticationRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="V_APPOINTMENT_DETAILS.cs">
+      <DependentUpon>APS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="V_TIMESLOT_DETAILS.cs">
+      <DependentUpon>APS.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="APS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>APS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <None Include="APS.edmx.diagram">
+      <DependentUpon>APS.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="APS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>APS.edmx</DependentUpon>
+      <LastGenOutput>APS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="APS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>APS.edmx</DependentUpon>
+      <LastGenOutput>APS.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\APS.BusinessEntity\APS.BusinessEntity.csproj">
+      <Project>{b06fb793-c671-4459-8864-c00e13be7c5c}</Project>
+      <Name>APS.BusinessEntity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

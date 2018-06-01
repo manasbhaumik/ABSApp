@@ -1,0 +1,307 @@
+﻿@using APS.BusinessEntity.Models.Authentication;
+@using APS.BusinessEntity.Models.Appointment;
+@using APS.BusinessEntity.Models.Common;
+
+@{
+    Layout = null;
+    var imgSrc = "";
+    if (ViewBag.Photo != null)
+    {
+        var base64 = Convert.ToBase64String(ViewBag.Photo);
+        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+    }
+    else
+    {
+        imgSrc = "~/img/user/Noimage.png";
+    }
+}
+
+@{
+    var supmsgs = (List<MessageModel>)ViewData["SuperviseeMessages"]; // Cast the list
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/base/favicon.ico">
+    <title>Message | ABS</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/glyphicons.css" rel="stylesheet">
+    <link href="/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link href="/css/login-style.css" rel="stylesheet">
+    <link href="/css/custom-style.css" rel="stylesheet">
+    <link href="css/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Page Content -->
+    <div class="page-content">
+        <div class="header">
+            <div class="pre-menu">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <div class="header-page-logo left">
+                                <a href="#"><img src="/img/base/logo-trinity.png" class="" alt="" /></a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="header-page-logo right">
+                                <a href="https://www.gov.sg/" target="_blank"><img src="/img/base/singapore-government.png" class="" alt="" /></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-menu">
+                <div class="container">
+                    <nav class="navbar navbar-expand-md ">
+                        <div class="row ustify-content-between">
+                            <div class="col-9">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"><span class="line"></span></span>
+                                </button>
+                                <spn class="header-menu-page-name">Appointment Booking System</spn>
+                            </div>
+                            <div class="col-3 ">
+                                <div class="btn-group btn-user float-right dropleft">
+                                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-user rounded-circle">
+                                        <img src='@imgSrc' alt="" style="min-height:36px;min-width:32px;" class="btn-user-img rounded-circle" />
+                                    </button>
+                                    <div class="dropdown-menu user-menu" data-container="body">
+                                        <div class="row ">
+                                            <div class="col-12 user-item">
+                                                <div class="user-menu-top">
+                                                    <p class="user-menu-title">My Account</p> <button type="button" class="btn btn-empty user-close">X</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <div class="user-menu-img">
+                                                    <img src='@imgSrc' class="profile-picture rounded-circle" alt="" />
+                                                </div>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <p class="user-menu-bold">
+                                                    @ViewBag.Name
+                                                </p>
+                                                <p class="user-menu-grey">
+                                                    @ViewBag.NRIC
+                                                </p>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <p class="user-menu-grey">
+                                                    Supervision Order
+                                                </p>
+                                                <p class="user-menu-bold">
+                                                    @ViewBag.SupervisionOrder
+                                                </p>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <p class="user-menu-grey">
+                                                    Reporting Centre
+                                                </p>
+                                                <p class="user-menu-bold">
+                                                    @ViewBag.ReportingCenter
+                                                </p>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <p class="user-menu-grey">
+                                                    Supervision Officer
+                                                </p>
+                                                <p class="user-menu-bold">
+                                                    @ViewBag.SupervisionOfficer
+                                                </p>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <div class="user-menu-button">
+                                                    <!-- <button type="button" class="btn btn-primary btn-block">Change Password</button> -->
+                                                    <a href="@Url.Action("UserChangePassword", "ABS", new { Area = "ABS" })" class="btn btn-primary btn-block">Change Password</a>
+                                                    <!-- <button type="button" class="btn btn-primary btn-block">Logout</button> -->
+                                                    <a id="btnLogout" class="btn btn-primary btn-block">Logout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </nav>
+                </div>
+            </div>
+            <div class="nav-menu">
+                <div class="container">
+                    <nav class="navbar">
+
+                        <div class="collapse navbar-collapse navbar-nav-side" id="navMenu">
+                            <ul class="navbar-nav mr-auto ">
+                                <li class="nav-item side-menu-title">
+                                    <h5 class="title">
+                                        Appointment Booking System
+                                    </h5>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="@Url.Action("ViewMessages", "Appointment", new { Area = "Appointment" })"><span class="oi icon-fixed-width oi-envelope-closed"></span> Message</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("ViewAppointment", "Appointment", new { Area = "Appointment" })"><span class="oi icon-fixed-width oi-calendar"></span> Book/Change Appointment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("AppointmentHistory", "Appointment", new { Area = "Appointment" })"><span class="oi icon-fixed-width oi-calendar"></span> Appointment History</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <div class="content ">
+            <div class="content-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-sm-4 push-0 push-sm-8">
+                            <div class="content-search">
+                                <div class="form-group ">
+                                    <div class="input-group ">
+                                        <input type="text" id="txtSearch" class="form-control " placeholder="Search" />
+                                        <span class="input-group-addon ">
+                                            <span id="btnSearch" class="oi icon-fixed-width oi-magnifying-glass"></span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-8 pull-0 pull-sm-4">
+                            <div class="content-title">
+                                <p class="title">
+                                    Messages
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="content-body">
+                <div class="container ">
+                    <div class="row ">
+                        <div class="col-12 ">
+                            <div id="accordion" role="tablist" class="accordion-horizontal accordion-message content-message ">
+                                <div class="card ">
+                                    @if (@supmsgs != null)
+                                    {
+                                        int i = 0;
+                                        foreach (var Item in @supmsgs)
+                                        {
+                                            { i++; }
+                                            if (i == 1)
+                                            {
+                                                
+                                                <div class="card-header active" role="tab" id="msgh@(i)">
+                                                    <button type="button" class="btn btn-title" data-toggle="collapse" data-target="#msg@(i)" role="button" aria-expanded="true" aria-controls="msg@(i)">
+                                                        @Html.DisplayFor(model => Item.subject)
+                                                        <span class="time">@Html.DisplayFor(model => Item.deldate)</span>
+                                                        <span class="arrow"></span>
+                                                    </button>
+                                                </div>
+
+                                                <div id="msg@(i)" class="collapse-content collapse show" role="tabpanel" aria-labelledby="msgh@(i)" data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <h5 class="m-title">@Html.DisplayFor(model => Item.subject)</h5>
+                                                        <p class="m-date">@Html.DisplayFor(model => Item.deldate)</p>
+                                                        <div class="m-msg">
+                                                            @Html.Raw(Item.messagebody)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="card-header" role="tab" id="msgh@(i)">
+                                                    <button type="button" class="btn btn-title collapsed" data-toggle="collapse" data-target="#msg@(i)" role="button" aria-expanded="false" aria-controls="msg@(i)">
+                                                        @Html.DisplayFor(model => Item.subject)
+                                                        <span class="time">@Html.DisplayFor(model => Item.deldate)</span>
+                                                        <span class="arrow"></span>
+                                                    </button>
+                                                </div>
+
+                                                <div id="msg@(i)" class="collapse-content collapse " role="tabpanel" aria-labelledby="msgh@(i)" data-parent="#accordion">
+                                                    <div class="card-body">
+                                                        <h5 class="m-title">@Html.DisplayFor(model => Item.subject)</h5>
+                                                        <p class="m-date">@Html.DisplayFor(model => Item.deldate)</p>
+                                                        <div class="m-msg">
+                                                            @Html.Raw(Item.messagebody)
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+        </div>
+
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/tether.js"></script>
+    <script>
+        window.Tether = {};
+    </script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/custom-js.js"></script>
+
+    <script type=text/javascript>
+        $("#btnLogout").click(function () {
+            sessionStorage.setItem('LoggedInUserName', null);
+            sessionStorage.setItem('accessToken', null);
+            sessionStorage.setItem('UserProfile', null);
+            window.location.href = "@Url.Action("ABSLogin", "ABS", new { Area = "ABS" })";
+            //$.ajax({
+            //    url: 'http://localhost:9484/api/Account/Logout',
+            //    method: 'POST',
+            //    data: {},
+            //    success: function (response) {
+            //        window.location.href = "../APS/APSLogin";
+            //    }
+            //});
+        });
+
+        $("#btnSearch").click(function () {
+
+            $.ajax({
+                url: '@Url.Action("GetSearchMessages", "Appointment", new { Area = "Appointment" })',
+                type: "Get",
+                data: { searchText: $("#txtSearch").val() },
+                success: function (result) {
+                    if (result != null) {
+                        $("#accordion").html(result);
+                    }
+                }
+            });
+        });
+    </script>
+
+
+</body>
+</html>

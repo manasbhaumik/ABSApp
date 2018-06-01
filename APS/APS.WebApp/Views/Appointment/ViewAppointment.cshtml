@@ -1,0 +1,402 @@
+﻿@using APS.BusinessEntity.Models.Authentication;
+@using APS.BusinessEntity.Models.Appointment;
+@model APS.BusinessEntity.Models.Appointment.AppointmentModel
+@{
+       Layout = null;
+       var imgSrc ="";
+        if (ViewBag.Photo != null)
+        {
+                var base64 = Convert.ToBase64String(ViewBag.Photo);
+                imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            
+        }
+        else
+        {
+                imgSrc = "~/img/user/Noimage.png";
+        }
+    }
+
+@{
+
+    var appTimeSlot = ViewData["AppointmentTimeSlotDetails"] != null ? (List<TimeSlotDetailsForAppointmentModel>)ViewData["AppointmentTimeSlotDetails"] : null; // Cast the list
+    var appointments = ViewData["SupAppointments"] != null ? (List<APS.BusinessEntity.Models.Authentication.AppointmentModel>)ViewData["SupAppointments"] : null;
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/base/favicon.ico">
+    <title>Book/Change Appointment | APS</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/glyphicons.css" rel="stylesheet">
+    <link href="/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link href="/css/login-style.css" rel="stylesheet">
+    <link href="/css/buttonlike-radiobutton-checkbox.css" rel="stylesheet">
+    <link href="/css/custom-style.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Page Content -->
+    <div class="page-content">
+        <div class="header">
+            <div class="pre-menu">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-sm-6">
+                            <div class="header-page-logo left">
+                                <a href="#"><img src="/img/base/logo-trinity.png" class="" alt="" /></a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6">
+                            <div class="header-page-logo right">
+                                <a href="https://www.gov.sg/" target="_blank"><img src="/img/base/singapore-government.png" class="" alt="" /></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-menu">
+                <div class="container">
+                    <nav class="navbar navbar-expand-md ">
+                        <div class="row ustify-content-between">
+                            <div class="col-9">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"><span class="line"></span></span>
+                                </button>
+                                <spn class="header-menu-page-name">Appointment Booking System</spn>
+                            </div>
+                            <div class="col-3 ">
+                                <div class="btn-group btn-user float-right dropleft">
+                                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-user rounded-circle">
+                                        <img src='@imgSrc' alt="" style="min-height:36px;min-width:32px;" class="btn-user-img rounded-circle" />
+                                    </button>
+                                    <div class="dropdown-menu user-menu" data-container="body">
+                                        <div class="row ">
+                                            <div class="col-12 user-item">
+                                                <div class="user-menu-top">
+                                                    <p class="user-menu-title">My Account</p> <button type="button" class="btn btn-empty user-close">X</button>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <div class="user-menu-img">
+                                                    <img src='@imgSrc' class="profile-picture rounded-circle" alt="" />
+                                                </div>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <p class="user-menu-bold">
+                                                    @ViewBag.Name
+                                                </p>
+                                                <p class="user-menu-grey">
+                                                    @ViewBag.NRIC
+                                                </p>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <p class="user-menu-grey">
+                                                    Supervision Order
+                                                </p>
+                                                <p class="user-menu-bold">
+                                                    @ViewBag.SupervisionOrder
+                                                </p>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <p class="user-menu-grey">
+                                                    Reporting Centre
+                                                </p>
+                                                <p class="user-menu-bold">
+                                                    @ViewBag.ReportingCenter
+                                                </p>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <p class="user-menu-grey">
+                                                    Supervision Officer
+                                                </p>
+                                                <p class="user-menu-bold">
+                                                    @ViewBag.SupervisionOfficer
+                                                </p>
+                                            </div>
+                                            <div class="col-12 user-item">
+                                                <div class="user-menu-button">
+                                                    <!-- <button type="button" class="btn btn-primary btn-block">Change Password</button> -->
+                                                    <a href="@Url.Action("UserChangePassword", "ABS", new { Area = "ABS" })" class="btn btn-primary btn-block">Change Password</a>
+                                                    <!-- <button type="button" class="btn btn-primary btn-block">Logout</button> -->
+                                                    <a id="btnLogout" class="btn btn-primary btn-block">Logout</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            <div class="nav-menu">
+                <div class="container">
+                    <nav class="navbar">
+                        <div class="collapse navbar-collapse navbar-nav-side" id="navMenu">
+                            <ul class="navbar-nav mr-auto ">
+                                <li class="nav-item side-menu-title">
+                                    <h5 class="title">
+                                        Appointment Booking System
+                                    </h5>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="@Url.Action("ViewMessages", "Appointment", new { Area = "Appointment" })"><span class="oi icon-fixed-width oi-envelope-closed"></span> Message</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("ViewAppointment", "Appointment", new { Area = "Appointment" })"><span class="oi icon-fixed-width oi-calendar"></span> Book/Change Appointment</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="@Url.Action("AppointmentHistory", "Appointment", new { Area = "Appointment" })"><span class="oi icon-fixed-width oi-calendar"></span> Appointment History</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="content ">
+            <div class="content-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-sm-4 push-0 push-sm-8">
+                            <div class="content-search">
+                                <div class="form-group ">
+                                    <div class="input-group ">
+                                        @*<input type="text" class="form-control " placeholder="Search" />
+                                            <span class="input-group-addon ">
+                                                <span class="oi icon-fixed-width oi-magnifying-glass"></span>
+                                            </span>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-8 pull-0 pull-sm-4">
+                            <div class="content-title">
+                                <p class="title">
+                                    Appointment
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <div class="container ">
+                    <div class="row ">
+                        <div class="col-12 col-sm-6 col-md-5 col-lg-4">
+                            <div class="appointment-left">
+                                @if (@appointments != null && @appointments.Count > 0)
+                                {
+                                    @*foreach (var Item in @appointments)
+                                        {
+                                            <p class="text-grey m-0">
+                                                Your next appointment will be on
+                                            </p>
+                                            <p class="font-weight-bold mb-4">
+                                                @Html.DisplayFor(model => Item.appdate)
+                                            </p>
+                                            <p class="text-grey m-0">
+                                                Time slot
+                                            </p>
+                                            <p class="font-weight-bold mb-4">
+                                                @Html.DisplayFor(model => Item.starttime) - @Html.DisplayFor(model => Item.endtime)
+                                            </p>
+                                            <button type="button" class="btn btn-block btn-primary mb-1">Cancel Change Time Slot</button>
+                                        }*@
+
+
+                                    <p class="text-grey m-0">
+                                        Your next appointment will be on
+                                    </p>
+                                    <p class="font-weight-bold mb-4">
+                                        @{ 
+                                            var appdate = Convert.ToDateTime(appointments[0].appdate);
+
+                                        }
+                                        @Html.Label(appdate.ToString("dd/MM/yyy"))
+                                    </p>
+                                    <p class="text-grey m-0">
+                                        Time slot
+                                    </p>
+                                    <p class="font-weight-bold mb-4">
+                                        @Html.DisplayFor(model => appointments[0].starttime) - @Html.DisplayFor(model => appointments[0].endtime)
+                                    </p>
+                                    if (@ViewBag.CanChangeTimeSlot)
+                                    {
+                                        <button type="button" id="btnChangeAppointment" class="btn btn-block btn-primary mb-1">Book/Change Time Slot</button>
+                                    }
+                                    else
+                                    {
+
+                                        <div class="modal-body text-left">
+                                            <p class="text">You have exceeded the number of times allowed for time slot change. Please contact your case officer.</p>
+                                            <p class="modal-seleted-timeslot"></p>
+                                        </div>
+
+                                                }
+                                            }
+                                            else
+                                            {
+                                        <div class="modal-body text-left">
+                                            <p class="text">You do not have any scheduled appointment . Please wait for next appointment schedule .</p>
+                                            <p class="modal-seleted-timeslot"></p>
+                                        </div>
+                                            }
+
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-7 col-lg-8">
+                            <div class="appointment-right">
+                                @*<h5 class="right-content-title">Please select a time slot</h5>
+                                    <div id="accordion" role="tablist" class="accordion-vertical tab-color-dark accordion-appointment content-appointment ">
+                                        <div class="card ">
+                                            @if (@appTimeSlot != null)
+                                            {
+                                                int i = 0;
+                                                foreach (var Item in @appTimeSlot)
+                                                {
+                                                    { i++; }
+                                                    <div class="card-header active" role="tab" id="apph@(i)">
+                                                        <button type="button" class="btn btn-title" data-toggle="collapse" data-target="#app@(i)" role="button" aria-expanded="true" aria-controls="app@(i)">
+                                                            @Html.DisplayFor(model => Item.TimeSlot_Category)
+                                                            <span class="arrow"></span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div id="app@(i)" class="collapse-content collapse show" role="tabpanel" aria-labelledby="apph@(i)" data-parent="#accordion">
+                                                        <div class="card-body">
+                                                            <div class="a-time-slot">
+                                                                @foreach (var tm in Item.TimeSlot_Appointment)
+                                                                {
+                                                                    if (tm.IsTimeSlotAvailable)
+                                                                    {
+                                                                        <div class="form-group form-inline">
+                                                                            @Html.HiddenFor(model => tm.TimeSlotID)
+                                                                            <input type="radio" name="timeslot" class="btn-radio " id="timeslot1" />
+                                                                            <label for="timeslot1">@Html.DisplayFor(model => tm.Slot_Start_Time) - @Html.DisplayFor(model => tm.Slot_End_Time)</label>
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="form-group form-inline">
+                                                                            @Html.HiddenFor(model => tm.TimeSlotID)
+                                                                            <input type="radio" name="timeslot" class="btn-radio disabled" id="timeslot1" />
+                                                                            <label for="timeslot1">@Html.DisplayFor(model => tm.Slot_Start_Time) - @Html.DisplayFor(model => tm.Slot_End_Time)</label>
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                }
+                                            }
+                                        </div>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade modal-timeslot confirm" id="timeslotModalConfirm" tabindex="-1" role="dialog" aria-labelledby="timeslotModalLabel" aria-hidden="true">
+        <div class="d-flex full-height">
+            <div class="modal-dialog modal-sm align-self-center" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-left">
+                        <h5 class="modal-title" id="timeslotModalLabel text-left">Confirmed Time Slot</h5>
+                    </div>
+                    <div class="modal-body text-left">
+                        <p class="text">You have selected</p>
+                        <p class="modal-seleted-timeslot"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row ">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-empty btn-block btn-modal" data-dismiss="modal">CANCEL</button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-primary btn-block btn-modal" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade modal-timeslot confirm" id="timeslotChangeExceedModalConfirm" tabindex="-1" role="dialog" aria-labelledby="timeslotModalLabel" aria-hidden="true">
+        <div class="d-flex full-height">
+            <div class="modal-dialog modal-sm align-self-center" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-left">
+                        <h5 class="modal-title" id="timeslotModalLabel text-left">TimeSlot Change Exceeded</h5>
+                    </div>
+                    <div class="modal-body text-left">
+                        <p class="text">You have exceeded the number of times allowed for time slot change. Please contact your case officer.</p>
+                        <p class="modal-seleted-timeslot"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row ">
+                            <div class="col-6">
+                                <button type="button" id="btnok" class="btn btn-empty btn-block btn-modal" data-dismiss="modal">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript -->
+    <script src="/js/jquery-3.2.1.js"></script>
+    <script src="/js/utils.js"></script>
+    <script src="/js/tether.js"></script>
+    <script>
+        window.Tether = {};
+    </script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/custom-js.js"></script>
+    <script type=text/javascript>
+        @*$(document).ready(function () {
+            //alert('show modal');
+            var canChangeTimeSlot = @ViewBag.CanChangeTimeSlot;
+            if(canChangeTimeSlot)
+            {
+            }
+        });*@
+        $("#btnLogout").click(function () {
+            sessionStorage.setItem('LoggedInUserName', null);
+            sessionStorage.setItem('accessToken', null);
+            sessionStorage.setItem('UserProfile', null);
+            window.location.href = "@Url.Action("ABSLogin", "ABS", new { Area = "ABS" })";
+            //$.ajax({
+            //    url: 'http://localhost:9484/api/Account/Logout',
+            //    method: 'POST',
+            //    data: {},
+            //    success: function (response) {
+            //        window.location.href = "../APS/APSLogin";
+            //    }
+            //});
+        });
+
+        $("#btnChangeAppointment").click(function () {
+            window.location.href = "@Url.Action("ChangeAppointment", "Appointment", new { Area = "Appointment" })";
+        });
+
+        $("#btnok").click(function () {
+            window.location.href = "@Url.Action("ViewAppointment", "Appointment", new { Area = "Appointment" })";
+        });
+
+    </script>
+
+</body>
+</html>

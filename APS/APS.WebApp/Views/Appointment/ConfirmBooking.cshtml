@@ -1,0 +1,64 @@
+﻿@using APS.BusinessEntity.Models.Appointment;
+
+@{
+    ViewBag.Title = "Confirm Booking";
+    var TSTIME = ViewBag.TSTIME;
+    var TSDATE = ViewBag.TSDATE;
+    var TSID = ViewBag.TSID;
+}
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h2>@ViewBag.Title</h2></div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="panel-body">
+                            You have selected the time slot @TSTIME on @TSDATE confirm time slot?
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-3 col-sm-push-1">
+                        <input type="button" id="btnConfirmBooking" value="Ok" class="btn" />
+                        <input type="button" value="Reselect" class="btn" onclick="location.href='@Request.UrlReferrer'" />
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script>
+        $(function () {
+            $("#btnConfirmBooking").click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/APSWEB/Appointment/ConfirmBookOrChangeAppointment",
+                    data: '{timeSlotID: "' + @TSID + '" }',
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.IsSuccess) {
+                            window.location.href = "/APSWEB/Appointment/ViewAppointmentBooking";
+                        }
+                        if (response.IsTimeSlotExceed) {
+                            window.location.href = "/APSWEB/Appointment/TimeSlotExceed";
+                        }
+                    }
+                });
+            });
+        });
+
+
+    </script>
+}
